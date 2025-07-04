@@ -1,7 +1,14 @@
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import { getPostBySlug } from '$lib/posts';
+import { getPostBySlug, getAllPosts } from '$lib/posts';
 import { marked } from 'marked';
+
+export const prerender = true;
+
+export async function entries() {
+	const posts = getAllPosts();
+	return posts.map((post) => ({ slug: post.slug }));
+}
 
 export const load: PageServerLoad = async ({ params }) => {
 	const { slug } = params;
