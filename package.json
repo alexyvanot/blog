@@ -30,6 +30,7 @@
     "@sveltejs/vite-plugin-svelte": "^5.1.0",
     "@tsconfig/svelte": "^5.0.4",
     "@types/node": "^24.0.10",
+    "cross-env": "^7.0.3",
     "mdsvex": "^0.12.6",
     "svelte": "^5.35.2",
     "svelte-check": "^4.2.2",
