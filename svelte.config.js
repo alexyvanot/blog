@@ -24,8 +24,8 @@ const config = {
 		}),
 
 		paths: {
-			base: dev ? '' : '/blog',
-			assets: dev ? '' : '/blog'
+			base: dev ? '' : process.env.BASE_PATH,
+			assets: dev ? '' : process.env.BASE_PATH
 		},
 
 		alias: {
