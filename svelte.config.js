@@ -25,7 +25,6 @@ const config = {
 
 		paths: {
 			base: dev ? '' : process.env.BASE_PATH,
-			assets: dev ? '' : process.env.BASE_PATH
 		},
 
 		alias: {
