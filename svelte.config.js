@@ -1,7 +1,7 @@
 import adapter from '@sveltejs/adapter-static';
 import { mdsvex } from 'mdsvex';
 import path from 'path';
-import { sveltePreprocess } from 'svelte-preprocess'
+import { sveltePreprocess } from 'svelte-preprocess';
 
 const dev = process.env.NODE_ENV === 'development';
 
@@ -10,21 +10,19 @@ const config = {
 	extensions: ['.svelte', '.md'],
 
 	preprocess: [
-		preprocess(),
-		sveltePreprocess(),
-		mdsvex({
-			extensions: ['.md']
-		})
+		sveltePreprocess({ postcss: true }),
+		mdsvex({ extensions: ['.md'] })
 	],
+
 	kit: {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: 'index.html',
+			fallback: '404.html'
 		}),
 
 		paths: {
-			base: dev ? '' : process.env.BASE_PATH,
+			base: dev ? '' : process.env.BASE_PATH
 		},
 
 		alias: {
@@ -35,7 +33,9 @@ const config = {
 
 		prerender: {
 			handleHttpError: 'warn'
-		}
+		},
+
+		trailingSlash: 'always'
 	}
 };
 
