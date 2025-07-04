@@ -1,9 +1,4 @@
-// src/lib/posts.ts
-import fs from 'fs';
-import path from 'path';
 import matter from 'gray-matter';
-
-const POSTS_DIR = 'posts';
 
 export type PostMeta = {
 	slug: string;
@@ -17,36 +12,32 @@ export type Post = PostMeta & {
 	content: string;
 };
 
+const files = import.meta.glob('/posts/*.md', {
+	eager: true,
+	query: '?raw',
+	import: 'default'
+});
+
 export function getAllPosts(): PostMeta[] {
-	const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.md'));
-
-    return files.map((file: string): PostMeta => {
-        const slug: string = file.replace(/\.md$/, '');
-        const raw: string = fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8');
-        const { data }: matter.GrayMatterFile<string> = matter(raw);
-
-        interface FrontMatter {
-            title: string;
-            description: string;
-            date: string;
-            tags?: string[];
-        }
-
-        const frontMatter: FrontMatter = data as FrontMatter;
-
-        return {
-            slug,
-            title: frontMatter.title,
-            description: frontMatter.description,
-            date: frontMatter.date,
-            tags: frontMatter.tags || []
-        };
-    });
+	return Object.entries(files).map(([path, rawContent]) => {
+		const slug = path.split('/').pop()?.replace(/\.md$/, '') || '';
+		const { data } = matter(rawContent as string);
+		return {
+			slug,
+			title: data.title,
+			description: data.description,
+			date: data.date,
+			tags: data.tags || []
+		};
+	});
 }
 
 export function getPostBySlug(slug: string): Post {
-	const raw = fs.readFileSync(path.join(POSTS_DIR, `${slug}.md`), 'utf-8');
-	const { data, content } = matter(raw);
+	const match = Object.entries(files).find(([path]) => path.endsWith(`${slug}.md`));
+	if (!match) throw new Error(`Article ${slug} non trouvé`);
+
+	const [, rawContent] = match;
+	const { data, content } = matter(rawContent as string);
 
 	return {
 		slug,

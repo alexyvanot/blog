@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from "$app/paths";
 	export let data;
 </script>
 
@@ -49,7 +50,7 @@
 
 	{#each data.posts as post}
 		<article class="article">
-			<a href={`/blog/${post.slug}`}>
+			<a href={`${base}/blogs/${post.slug}`}>
 				<h2>{post.title}</h2>
 				<p><small>{post.date}</small></p>
 				<p>{post.description}</p>

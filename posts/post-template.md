@@ -30,7 +30,7 @@ console.log(hello);
 
 ### Image
 
-![Une image](/static/favicon.svg)
+![Une image](/favicon.svg)
 
 ---
 

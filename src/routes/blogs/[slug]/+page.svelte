@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	export let data;
 </script>
 
@@ -45,9 +46,8 @@
 </style>
 
 <div class="article">
-    <a class="back" href="/blog">← Retour au blog</a>
+	<a class="back" href={`${base}/blogs`}>← Retour au blog</a>
 	<h1>{data.title}</h1>
 	<p class="date">{data.date}</p>
-
-<div class="content">{@html data.content}</div>
+	<div class="content">{@html data.content}</div>
 </div>

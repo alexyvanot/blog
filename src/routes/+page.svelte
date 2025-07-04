@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	function handleClick() {
-		goto('/blog');
+		goto(`${base}/blogs`);
 	}
 </script>
 

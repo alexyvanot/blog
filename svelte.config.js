@@ -1,11 +1,20 @@
 import adapter from '@sveltejs/adapter-static';
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import { mdsvex } from 'mdsvex';
+import preprocess from 'svelte-preprocess';
+import path from 'path';
 
 const dev = process.env.NODE_ENV === 'development';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	preprocess: vitePreprocess(),
+	extensions: ['.svelte', '.md'],
+
+	preprocess: [
+		preprocess(),
+		mdsvex({
+			extensions: ['.md']
+		})
+	],
 
 	kit: {
 		adapter: adapter({
@@ -13,8 +22,19 @@ const config = {
 			assets: 'build',
 			fallback: null
 		}),
+
 		paths: {
 			base: dev ? '' : '/blog'
+		},
+
+		alias: {
+			$lib: path.resolve('src/lib'),
+			$routes: path.resolve('src/routes'),
+			$components: path.resolve('src/lib/components')
+		},
+
+		prerender: {
+			handleHttpError: 'warn'
 		}
 	}
 };
