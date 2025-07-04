@@ -18,8 +18,8 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			pages: 'build',
-			assets: 'build',
+			pages: 'build/blog',
+			assets: 'build/blog',
 			fallback: null
 		}),
 
