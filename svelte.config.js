@@ -1,7 +1,7 @@
 import adapter from '@sveltejs/adapter-static';
 import { mdsvex } from 'mdsvex';
-import preprocess from 'svelte-preprocess';
 import path from 'path';
+import { sveltePreprocess } from 'svelte-preprocess'
 
 const dev = process.env.NODE_ENV === 'development';
 
@@ -11,11 +11,11 @@ const config = {
 
 	preprocess: [
 		preprocess(),
+		sveltePreprocess(),
 		mdsvex({
 			extensions: ['.md']
 		})
 	],
-
 	kit: {
 		adapter: adapter({
 			pages: 'build',
