@@ -24,7 +24,7 @@ const config = {
 		}),
 
 		paths: {
-			base: { relative: false }
+			base: dev ? '' : '/blog'
 		},
 
 		alias: {
