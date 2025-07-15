@@ -5,5 +5,5 @@ const dev = process.env.NODE_ENV === 'development';
 
 export default defineConfig({
 	plugins: [sveltekit()],
-	base: dev ? '' : '/blog'
+	base: dev ? '' : '/testing-blog'
 });
